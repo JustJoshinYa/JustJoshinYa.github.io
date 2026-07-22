@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Body Descriptor Guide • Lexicon</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+    
+    :root {
+      --accent: #6366f1;
+    }
+    
+    body {
+      font-family: 'Inter', system_ui, sans-serif;
+    }
+    
+    .font-display {
+      font-family: 'Space Grotesk', 'Inter', system_ui, sans-serif;
+      font-weight: 600;
+    }
+
+    .bdg-card {
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .bdg-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+    }
+
+    .spec-seg {
+      transition: all 0.15s ease;
+      position: relative;
+    }
+    
+    .spec-seg:hover {
+      filter: brightness(0.92);
+      transform: scale(1.01);
+    }
+    
+    .spec-seg:active {
+      transform: scale(0.985);
+    }
+
+    .tag-pill {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: -.01em;
+    }
+
+    .section-header {
+      font-size: 11px;
+      letter-spacing: .08em;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .modern-popup {
+      animation: popupEnter 0.2s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    @keyframes popupEnter {
+      from { opacity: 0; transform: translateY(12px) scale(0.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .range-input {
+      accent-color: #6366f1;
+    }
+
+    .word-grid {
+      scrollbar-width: thin;
+      scrollbar-color: #e4e4e7 #fafafa;
+    }
+
+    .descriptor-card {
+      border-left-width: 5px;
+    }
+
+    /* Night Mode Overrides */
+    .dark body {
+      background-color: #18181b;
+      color: #e4e4e7;
+    }
+    .dark .bg-white {
+      background-color: #27272a !important;
+    }
+    .dark .bg-zinc-100 {
+      background-color: #18181b !important;
+    }
+    .dark .bg-zinc-50 {
+      background-color: #27272a !important;
+    }
+    .dark .border-zinc-200 {
+      border-color: #3f3f46 !important;
+    }
+    .dark .border-zinc-100 {
+      border-color: #3f3f46 !important;
+    }
+    .dark .text-zinc-900 {
+      color: #e4e4e7 !important;
+    }
+    .dark .text-zinc-600 {
+      color: #a1a1aa !important;
+    }
+    .dark .text-zinc-500 {
+      color: #71717a !important;
+    }
+    .dark .text-zinc-700 {
+      color: #d4d4d8 !important;
+    }
+    .dark .text-zinc-400 {
+      color: #52525b !important;
+    }
+    .dark .descriptor-card {
+      background-color: #27272a;
+      border-color: #3f3f46;
+    }
+    .dark .spec-seg {
+      filter: brightness(0.95);
+    }
+    .dark #bdg-popup-bar {
+      opacity: 0.9;
+    }
+    .dark .modern-popup {
+      border-color: #3f3f46;
+    }
+    .dark .tag-pill {
+      filter: brightness(0.85) saturate(0.9);
+    }
+    .dark .sort-btn.active {
+      background-color: #27272a !important;
+      color: #e4e4e7 !important;
+    }
+  </style>
+</head>
+<body class="bg-zinc-100 text-zinc-900">
+  <div class="max-w-[1080px] mx-auto px-5 py-8">
+    
+    <!-- Header -->
+    <div class="flex items-end justify-between mb-8">
+      <div>
+        <div class="flex items-center gap-x-3">
+          <div class="w-9 h-9 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-2xl flex items-center justify-center shadow-inner">
+            <i class="fa-solid fa-user text-white text-xl"></i>
+          </div>
+          <div>
+            <h1 class="font-display text-4xl tracking-tighter">Body Descriptor Guide</h1>
+            <p class="text-zinc-600 text-[15px] -mt-0.5">A precise lexicon for the human form</p>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center gap-x-2 text-xs">
+        <div class="px-3 py-1.5 bg-white rounded-2xl border border-zinc-200 text-zinc-600 flex items-center gap-x-1.5">
+          <i class="fa-solid fa-book text-indigo-500"></i>
+          <span class="font-medium">200+ descriptors</span>
+        </div>
+        <button onclick="toggleNightMode()" 
+                class="w-9 h-9 flex items-center justify-center text-zinc-500 hover:text-zinc-700 hover:bg-white rounded-2xl border border-zinc-200 transition flex-shrink-0"
+                id="night-toggle"
+                title="Toggle night mode">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Search -->
+    <div class="mb-5">
+      <div class="relative max-w-md">
+        <i class="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400"></i>
+        <input 
+          type="text" 
+          id="bdg-search" 
+          placeholder="Search words, definitions, or tags..." 
+          oninput="bdgFilter(this.value)"
+          class="w-full bg-white border border-zinc-200 focus:border-zinc-300 transition pl-11 pr-5 py-[13px] text-[15px] rounded-3xl outline-none placeholder:text-zinc-400">
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="flex items-center gap-x-1.5 mb-6 overflow-x-auto pb-1.5 -mx-1 px-1" id="bdg-tabs">
+      <button onclick="bdgTab('all', this)" class="bdg-tab active px-5 py-2 text-sm font-semibold rounded-3xl bg-zinc-900 text-white flex-shrink-0">All</button>
+      <button onclick="bdgTab('build', this)" class="bdg-tab px-5 py-2 text-sm font-semibold rounded-3xl hover:bg-white border border-transparent hover:border-zinc-200 flex-shrink-0">Build</button>
+      <button onclick="bdgTab('arms', this)" class="bdg-tab px-5 py-2 text-sm font-semibold rounded-3xl hover:bg-white border border-transparent hover:border-zinc-200 flex-shrink-0">Arms</button>
+      <button onclick="bdgTab('legs', this)" class="bdg-tab px-5 py-2 text-sm font-semibold rounded-3xl hover:bg-white border border-transparent hover:border-zinc-200 flex-shrink-0">Legs</button>
+      <button onclick="bdgTab('torso', this)" class="bdg-tab px-5 py-2 text-sm font-semibold rounded-3xl hover:bg-white border border-transparent hover:border-zinc-200 flex-shrink-0">Torso</button>
+      <button onclick="bdgTab('breasts', this)" class="bdg-tab px-5 py-2 text-sm font-semibold rounded-3xl hover:bg-white border border-transparent hover:border-zinc-200 flex-shrink-0">Breasts</button>
+      <button onclick="bdgTab('ass', this)" class="bdg-tab px-5 py-2 text-sm font-semibold rounded-3xl hover:bg-white border border-transparent hover:border-zinc-200 flex-shrink-0">Ass</button>
+      <button onclick="bdgTab('face', this)" class="bdg-tab px-5 py-2 text-sm font-semibold rounded-3xl hover:bg-white border border-transparent hover:border-zinc-200 flex-shrink-0">Face</button>
+      <button onclick="bdgTab('texture', this)" class="bdg-tab px-5 py-2 text-sm font-semibold rounded-3xl hover:bg-white border border-transparent hover:border-zinc-200 flex-shrink-0">Texture</button>
+      <button onclick="bdgTab('spectrum', this)" class="bdg-tab px-5 py-2 text-sm font-semibold rounded-3xl hover:bg-white border border-transparent hover:border-zinc-200 flex-shrink-0 flex items-center gap-x-1.5">
+        <span>Spectra</span>
+      </button>
+      <button onclick="bdgTab('matcher', this)" class="bdg-tab px-5 py-2 text-sm font-semibold rounded-3xl hover:bg-white border border-transparent hover:border-zinc-200 flex-shrink-0 flex items-center gap-x-1.5 bg-gradient-to-r from-indigo-50 to-violet-50 text-indigo-700">
+        <i class="fa-solid fa-sliders-h text-xs"></i>
+        <span>Matcher</span>
+      </button>
+    </div>
+
+    <!-- Size & Sort Controls (for word view) -->
+    <div id="bdg-size-controls" class="flex flex-wrap items-center gap-x-4 gap-y-2 mb-5">
+      <!-- Sort -->
+      <div class="flex items-center gap-x-2">
+        <span class="text-xs font-semibold tracking-wider text-zinc-500 px-1">SORT</span>
+        <div class="flex bg-white border border-zinc-200 rounded-2xl p-0.5 text-sm shadow-sm">
+          <button onclick="setSort('default', this)" class="sort-btn active px-3.5 py-1 text-xs font-semibold rounded-[14px] bg-zinc-900 text-white">Default</button>
+          <button onclick="setSort('size-asc', this)" class="sort-btn px-3.5 py-1 text-xs font-semibold rounded-[14px] hover:bg-zinc-50 text-zinc-600">Size ↑</button>
+          <button onclick="setSort('size-desc', this)" class="sort-btn px-3.5 py-1 text-xs font-semibold rounded-[14px] hover:bg-zinc-50 text-zinc-600">Size ↓</button>
+        </div>
+      </div>
+
+      <!-- Size Range Filter -->
+      <div class="flex items-center gap-x-2 flex-1 min-w-[260px] max-w-md">
+        <span class="text-xs font-semibold tracking-wider text-zinc-500 px-1 whitespace-nowrap">SIZE</span>
+        <div class="flex-1">
+          <div class="flex justify-between text-[10px] text-zinc-500 px-0.5 mb-0.5 font-medium">
+            <div>Less / Smaller</div>
+            <div>More / Larger</div>
+          </div>
+          <div class="flex items-center gap-x-2">
+            <input type="range" id="size-min" min="0" max="10" step="1" value="0" 
+                   class="w-full accent-indigo-600 range-input cursor-pointer" oninput="applySizeFilter()">
+            <span id="size-min-label" class="font-mono text-xs w-5 text-center text-zinc-600">0</span>
+            <span class="text-zinc-300">–</span>
+            <input type="range" id="size-max" min="0" max="10" step="1" value="10" 
+                   class="w-full accent-indigo-600 range-input cursor-pointer" oninput="applySizeFilter()">
+            <span id="size-max-label" class="font-mono text-xs w-5 text-center text-zinc-600">10</span>
+          </div>
+        </div>
+      </div>
+
+      <button onclick="resetSizeFilter()" 
+              class="text-xs font-medium px-3 h-8 flex items-center rounded-2xl border border-zinc-200 hover:bg-zinc-50 active:bg-zinc-100 transition text-zinc-600 flex-shrink-0">
+        <i class="fa-solid fa-undo mr-1.5 text-xs"></i> Reset
+      </button>
+    </div>
+
+    <!-- Word View -->
+    <div id="bdg-word-view">
+      <div id="bdg-no-results" class="hidden text-center py-16">
+        <i class="fa-solid fa-search text-3xl text-zinc-300 mb-3"></i>
+        <p class="text-zinc-500">No words matched your search.</p>
+      </div>
+      <div id="bdg-sections" class="space-y-9"></div>
+    </div>
+
+    <!-- Spectrum View -->
+    <div id="bdg-spectrum-view" class="hidden">
+      <div class="mb-6">
+        <p class="text-sm text-zinc-600">Tap any segment to explore its meaning. These spectrums show how descriptors relate along key axes.</p>
+      </div>
+
+      <!-- Muscle Presence -->
+      <div class="mb-7">
+        <div class="flex items-center justify-between mb-2 px-1">
+          <div class="section-header text-zinc-500">Muscle Presence</div>
+          <div class="text-xs text-zinc-500 font-medium">None → Built</div>
+        </div>
+        <div class="flex rounded-3xl overflow-hidden border border-zinc-200 h-11 text-xs font-semibold shadow-inner">
+          <div onclick="bdgShowSpec('slack')" class="spec-seg flex-1 flex items-center justify-center bg-violet-100 text-violet-700 hover:bg-violet-200 cursor-pointer">slack</div>
+          <div onclick="bdgShowSpec('soft')" class="spec-seg flex-1 flex items-center justify-center bg-violet-200 text-violet-700 hover:bg-violet-300 cursor-pointer">soft</div>
+          <div onclick="bdgShowSpec('fleshy')" class="spec-seg flex-1 flex items-center justify-center bg-violet-300 text-violet-800 hover:bg-violet-400 cursor-pointer">fleshy</div>
+          <div onclick="bdgShowSpec('toned')" class="spec-seg flex-1 flex items-center justify-center bg-violet-500 text-white hover:bg-violet-600 cursor-pointer">toned</div>
+          <div onclick="bdgShowSpec('defined')" class="spec-seg flex-1 flex items-center justify-center bg-violet-600 text-white hover:bg-violet-700 cursor-pointer">defined</div>
+          <div onclick="bdgShowSpec('sculpted')" class="spec-seg flex-1 flex items-center justify-center bg-violet-700 text-white hover:bg-violet-800 cursor-pointer">sculpted</div>
+          <div onclick="bdgShowSpec('jacked')" class="spec-seg flex-1 flex items-center justify-center bg-violet-900 text-white hover:bg-black cursor-pointer">jacked</div>
+        </div>
+      </div>
+
+      <!-- Body Fat -->
+      <div class="mb-7">
+        <div class="flex items-center justify-between mb-2 px-1">
+          <div class="section-header text-zinc-500">Body Fat</div>
+          <div class="text-xs text-zinc-500 font-medium">None → Heavy</div>
+        </div>
+        <div class="flex rounded-3xl overflow-hidden border border-zinc-200 h-11 text-xs font-semibold shadow-inner">
+          <div onclick="bdgShowSpec('bony')" class="spec-seg flex-1 flex items-center justify-center bg-emerald-100 text-emerald-700 hover:bg-emerald-200 cursor-pointer">bony</div>
+          <div onclick="bdgShowSpec('lean')" class="spec-seg flex-1 flex items-center justify-center bg-emerald-200 text-emerald-700 hover:bg-emerald-300 cursor-pointer">lean</div>
+          <div onclick="bdgShowSpec('fleshy')" class="spec-seg flex-1 flex items-center justify-center bg-emerald-300 text-emerald-800 hover:bg-emerald-400 cursor-pointer">fleshy</div>
+          <div onclick="bdgShowSpec('full')" class="spec-seg flex-1 flex items-center justify-center bg-emerald-500 text-white hover:bg-emerald-600 cursor-pointer">full</div>
+          <div onclick="bdgShowSpec('plush')" class="spec-seg flex-1 flex items-center justify-center bg-emerald-600 text-white hover:bg-emerald-700 cursor-pointer">plush</div>
+          <div onclick="bdgShowSpec('heavy')" class="spec-seg flex-1 flex items-center justify-center bg-emerald-800 text-white hover:bg-emerald-900 cursor-pointer">heavy</div>
+        </div>
+      </div>
+
+      <!-- Mass / Frame -->
+      <div class="mb-7">
+        <div class="flex items-center justify-between mb-2 px-1">
+          <div class="section-header text-zinc-500">Mass / Frame</div>
+          <div class="text-xs text-zinc-500 font-medium">Light → Dense</div>
+        </div>
+        <div class="flex rounded-3xl overflow-hidden border border-zinc-200 h-11 text-xs font-semibold shadow-inner">
+          <div onclick="bdgShowSpec('slight')" class="spec-seg flex-1 flex items-center justify-center bg-amber-100 text-amber-700 hover:bg-amber-200 cursor-pointer">slight</div>
+          <div onclick="bdgShowSpec('slender')" class="spec-seg flex-1 flex items-center justify-center bg-amber-200 text-amber-700 hover:bg-amber-300 cursor-pointer">slender</div>
+          <div onclick="bdgShowSpec('fleshy')" class="spec-seg flex-1 flex items-center justify-center bg-amber-300 text-amber-800 hover:bg-amber-400 cursor-pointer">fleshy</div>
+          <div onclick="bdgShowSpec('substantial')" class="spec-seg flex-1 flex items-center justify-center bg-amber-500 text-white hover:bg-amber-600 cursor-pointer">substantial</div>
+          <div onclick="bdgShowSpec('solid')" class="spec-seg flex-1 flex items-center justify-center bg-amber-600 text-white hover:bg-amber-700 cursor-pointer">solid</div>
+          <div onclick="bdgShowSpec('stocky')" class="spec-seg flex-1 flex items-center justify-center bg-amber-700 text-white hover:bg-amber-800 cursor-pointer">stocky</div>
+          <div onclick="bdgShowSpec('broad')" class="spec-seg flex-1 flex items-center justify-center bg-amber-900 text-white hover:bg-black cursor-pointer">broad</div>
+        </div>
+      </div>
+
+      <!-- Height -->
+      <div class="mb-7">
+        <div class="flex items-center justify-between mb-2 px-1">
+          <div class="section-header text-zinc-500">Height / Length</div>
+          <div class="text-xs text-zinc-500 font-medium">Short → Tall</div>
+        </div>
+        <div class="flex rounded-3xl overflow-hidden border border-zinc-200 h-11 text-xs font-semibold shadow-inner">
+          <div onclick="bdgShowSpec('petite')" class="spec-seg flex-1 flex items-center justify-center bg-sky-100 text-sky-700 hover:bg-sky-200 cursor-pointer">petite</div>
+          <div onclick="bdgShowSpec('compact')" class="spec-seg flex-1 flex items-center justify-center bg-sky-200 text-sky-700 hover:bg-sky-300 cursor-pointer">compact</div>
+          <div onclick="bdgShowSpec('trim')" class="spec-seg flex-1 flex items-center justify-center bg-sky-300 text-sky-800 hover:bg-sky-400 cursor-pointer">trim</div>
+          <div onclick="bdgShowSpec('statuesque')" class="spec-seg flex-1 flex items-center justify-center bg-sky-500 text-white hover:bg-sky-600 cursor-pointer">statuesque</div>
+          <div onclick="bdgShowSpec('rangy')" class="spec-seg flex-1 flex items-center justify-center bg-sky-600 text-white hover:bg-sky-700 cursor-pointer">rangy</div>
+          <div onclick="bdgShowSpec('lanky')" class="spec-seg flex-1 flex items-center justify-center bg-sky-800 text-white hover:bg-sky-900 cursor-pointer">lanky</div>
+        </div>
+      </div>
+
+      <!-- Detail panel -->
+      <div id="bdg-spec-detail" class="bg-white border border-zinc-200 rounded-3xl p-5 min-h-[92px] text-sm">
+        <div class="text-zinc-500 text-xs">Tap a word on any spectrum above to see its full definition and usage.</div>
+      </div>
+    </div>
+
+    <!-- Matcher View -->
+    <div id="bdg-matcher-view" class="hidden">
+      <div class="bg-white border border-zinc-200 rounded-3xl p-7 shadow-sm">
+        <div class="flex items-start justify-between mb-5">
+          <div>
+            <div class="flex items-center gap-x-2">
+              <i class="fa-solid fa-sliders-h text-indigo-500"></i>
+              <h3 class="font-semibold text-2xl tracking-tight">Physique Matcher</h3>
+            </div>
+            <p class="text-sm text-zinc-600 mt-1 max-w-md">Move the sliders to discover descriptors that fit a specific combination of body fat and muscularity. Results update live.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Body Fat Slider -->
+          <div>
+            <div class="flex items-baseline justify-between mb-2.5">
+              <div>
+                <span class="font-semibold text-sm tracking-wider text-emerald-700">BODY FAT</span>
+              </div>
+              <div id="fat-label" 
+                   class="font-mono text-sm font-semibold px-3 py-px bg-emerald-100 text-emerald-700 rounded-2xl min-w-[92px] text-center">Average</div>
+            </div>
+            <input type="range" id="fat-slider" min="0" max="10" step="1" value="5" 
+                   class="w-full accent-emerald-600 range-input cursor-pointer" oninput="updateMatcher()">
+            <div class="flex justify-between text-[10px] text-zinc-500 mt-1.5 px-0.5 font-medium">
+              <div>Bony</div>
+              <div>Heavy</div>
+            </div>
+          </div>
+
+          <!-- Muscle Slider -->
+          <div>
+            <div class="flex items-baseline justify-between mb-2.5">
+              <div>
+                <span class="font-semibold text-sm tracking-wider text-violet-700">MUSCULARITY</span>
+              </div>
+              <div id="muscle-label" 
+                   class="font-mono text-sm font-semibold px-3 py-px bg-violet-100 text-violet-700 rounded-2xl min-w-[92px] text-center">Toned</div>
+            </div>
+            <input type="range" id="muscle-slider" min="0" max="10" step="1" value="5" 
+                   class="w-full accent-violet-600 range-input cursor-pointer" oninput="updateMatcher()">
+            <div class="flex justify-between text-[10px] text-zinc-500 mt-1.5 px-0.5 font-medium">
+              <div>Soft</div>
+              <div>Bulky</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-zinc-100">
+          <div class="flex items-center justify-between mb-3 px-1">
+            <div class="section-header text-zinc-500">Matching descriptors for this physique</div>
+            <button onclick="resetMatcher()" 
+                    class="text-xs font-medium px-4 h-8 flex items-center rounded-2xl border border-zinc-200 hover:bg-zinc-50 active:bg-zinc-100 transition">
+              <i class="fa-solid fa-undo mr-1.5 text-xs"></i> Reset
+            </button>
+          </div>
+          <div id="matcher-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 word-grid"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Popup Modal -->
+  <div id="bdg-overlay" onclick="bdgClosePopup(event)" 
+       class="hidden fixed inset-0 bg-black/40 backdrop-blur-md z-[100] flex items-center justify-center p-4">
+    <div onclick="event.stopImmediatePropagation()" 
+         class="modern-popup bg-white w-full max-w-[400px] rounded-3xl shadow-2xl border border-zinc-100 overflow-hidden">
+      
+      <!-- Colored top bar -->
+      <div id="bdg-popup-bar" class="h-1.5 w-full"></div>
+      
+      <div class="p-6">
+        <!-- Header -->
+        <div class="flex items-start justify-between mb-4">
+          <div id="bdg-popup-word" class="font-display text-3xl tracking-tighter font-semibold"></div>
+          <button onclick="bdgClosePopup()" 
+                  class="w-9 h-9 flex items-center justify-center text-zinc-400 hover:text-zinc-600 hover:bg-zinc-100 rounded-2xl transition -mr-1 -mt-1">
+            <i class="fa-solid fa-times text-lg"></i>
+          </button>
+        </div>
+
+        <!-- Definition -->
+        <div id="bdg-popup-def" class="text-[15px] leading-relaxed text-zinc-700 mb-5"></div>
+
+        <!-- Usage example -->
+        <div class="bg-zinc-50 border border-zinc-100 rounded-2xl p-4 mb-5">
+          <div class="text-[10px] font-bold tracking-[1px] text-zinc-500 mb-1.5">IN CONTEXT</div>
+          <div id="bdg-popup-use" class="text-sm italic text-zinc-600 leading-snug"></div>
+        </div>
+
+        <!-- Tags -->
+        <div class="flex items-center gap-2 flex-wrap" id="bdg-popup-tags"></div>
+
+        <!-- Actions -->
+        <div class="flex gap-2 mt-6">
+          <button onclick="copyDescriptor()" 
+                  class="flex-1 h-10 flex items-center justify-center gap-x-2 text-sm font-semibold bg-zinc-900 hover:bg-black transition text-white rounded-2xl active:scale-[0.985]">
+            <i class="fa-solid fa-copy"></i>
+            <span>Copy descriptor</span>
+          </button>
+          <button onclick="bdgClosePopup()" 
+                  class="flex-1 h-10 flex items-center justify-center gap-x-2 text-sm font-semibold border border-zinc-200 hover:bg-zinc-50 rounded-2xl transition">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Tailwind script
+    function initializeTailwind() {
+      document.documentElement.style.setProperty('--accent', '#6366f1');
+    }
+    initializeTailwind();
+
+    // Dark mode state
+    let isDark = false;
+
+    function toggleNightMode() {
+      isDark = !isDark;
+      const html = document.documentElement;
+      const toggleBtn = document.getElementById('night-toggle');
+      
+      if (isDark) {
+        html.classList.add('dark');
+        if (toggleBtn) toggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+      } else {
+        html.classList.remove('dark');
+        if (toggleBtn) toggleBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+      }
+      
+      localStorage.setItem('bdg-dark', isDark ? '1' : '0');
+    }
+
+    function initDarkMode() {
+      const saved = localStorage.getItem('bdg-dark');
+      const toggleBtn = document.getElementById('night-toggle');
+      if (saved === '1') {
+        isDark = true;
+        document.documentElement.classList.add('dark');
+        if (toggleBtn) toggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+      } else {
+        if (toggleBtn) toggleBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+      }
+    }
+
+    // Size filter & sort state
+    let currentSort = 'default';
+    let sizeMin = 0;
+    let sizeMax = 10;
+
+    const CAT_LABELS = {
+      build: 'Overall build', 
+      arms: 'Arms', 
+      legs: 'Legs', 
+      torso: 'Torso', 
+      breasts: 'Breasts',
+      ass: 'Ass',
+      face: 'Face', 
+      texture: 'Texture & feel'
+    };
+
+    const TAG_CLASS = {
+      lean: 'bg-sky-100 text-sky-700',
+      mass: 'bg-amber-100 text-amber-700',
+      fat: 'bg-emerald-100 text-emerald-700',
+      muscle: 'bg-violet-100 text-violet-700',
+      texture: 'bg-rose-100 text-rose-700',
+      size: 'bg-zinc-200 text-zinc-700'
+    };
+
+    const CAT_GRADIENTS = {
+      build: 'linear-gradient(90deg, #6366f1, #a855f7)',
+      arms: 'linear-gradient(90deg, #0ea5e9, #38bdf8)',
+      legs: 'linear-gradient(90deg, #10b981, #34d399)',
+      torso: 'linear-gradient(90deg, #f59e0b, #fbbf24)',
+      breasts: 'linear-gradient(90deg, #f472b6, #ec4899)',
+      ass: 'linear-gradient(90deg, #f97316, #fb923c)',
+      face: 'linear-gradient(90deg, #ec4899, #f472b6)',
+      texture: 'linear-gradient(90deg, #f43f5e, #fb7185)'
+    };
+
+    const fatLabels = ["Bony", "Lean", "Slim", "Average", "Soft", "Full", "Plush", "Curvy", "Thick", "Heavy", "Voluptuous"];
+    const muscleLabels = ["Slack", "Soft", "Fleshy", "Toned", "Defined", "Sculpted", "Jacked", "Powerful", "Brawny", "Hulking", "Massive"];
+
+    const words = [
+      // ── BUILD ──
+      {word:"slight",cat:"build",tags:["size","lean"],def:"Naturally small frame, low physical presence. Implies delicacy rather than thinness.",use:"Her slight frame disappeared in oversized coats.",fatLevel:1,muscleLevel:1},
+      {word:"petite",cat:"build",tags:["size","lean"],def:"Small-framed and short. Not just thin — small in every dimension. Usually feminine-coded.",use:"Petite but occupying the room completely.",fatLevel:2,muscleLevel:1},
+      {word:"slender",cat:"build",tags:["lean","size"],def:"Thin but proportionate, with a pleasing line. Less clinical than 'slim', less bony than 'slight'.",use:"A slender figure with long proportions.",fatLevel:2,muscleLevel:2},
+      {word:"slim",cat:"build",tags:["lean"],def:"Straightforwardly thin. Neutral, factual. Works for any gender.",use:"Slim through the hips, almost boyish.",fatLevel:2,muscleLevel:1},
+      {word:"svelte",cat:"build",tags:["lean","size"],def:"Elegantly slim. Has a fashionable undertone. Often implies effort or discipline.",use:"Svelte in the tailored way that suggests a careful life.",fatLevel:2,muscleLevel:3},
+      {word:"spare",cat:"build",tags:["lean"],def:"Nothing extra. Economical body. Implies deprivation or discipline without sentimentality.",use:"Spare as a monk — no excess anywhere.",fatLevel:1,muscleLevel:2},
+      {word:"trim",cat:"build",tags:["lean"],def:"Neat and fit without any excess. Implies maintenance. Often describes someone middle-aged.",use:"Trim at sixty in a way that suggested a consistent morning routine.",fatLevel:2,muscleLevel:4},
+      {word:"lean",cat:"build",tags:["lean","muscle"],def:"Thin with functional muscle. Implies some definition without being built.",use:"The lean, efficient build of a distance runner.",fatLevel:2,muscleLevel:5},
+      {word:"lithe",cat:"build",tags:["lean","muscle"],def:"Supple and graceful in a lean body. Implies flexibility as much as thinness.",use:"Lithe in the way dancers are — strength without any show of it.",fatLevel:2,muscleLevel:4},
+      {word:"wiry",cat:"build",tags:["lean","muscle","texture"],def:"Thin but ropy and sinewy. Hidden strength. Doesn't look powerful but is.",use:"A wiry toughness she wore without showing off.",fatLevel:1,muscleLevel:6},
+      {word:"willowy",cat:"build",tags:["lean","size"],def:"Tall, slender, and slightly bending. Feminine-coded, suggests fragility with grace.",use:"Willowy in a white dress, she looked like something painted.",fatLevel:2,muscleLevel:2},
+      {word:"rangy",cat:"build",tags:["lean","size"],def:"Tall, lean, and long-limbed without awkwardness. Often implies capability.",use:"Rangy and loose-jointed, the kind of build that ate up distance.",fatLevel:2,muscleLevel:3},
+      {word:"lanky",cat:"build",tags:["lean","size"],def:"Tall and thin with limbs that seem slightly too long. Ungainly but often endearing.",use:"Lanky in the way teenage boys are before they grow into themselves.",fatLevel:2,muscleLevel:2},
+      {word:"athletic",cat:"build",tags:["muscle","lean"],def:"Active-looking build. Implies regular movement. Somewhat generic — specify further if possible.",use:"The generic athletic build of someone who played three sports in high school.",fatLevel:3,muscleLevel:6},
+      {word:"compact",cat:"build",tags:["size","mass"],def:"Small but dense. More square than elongated. No wasted space.",use:"Compact and low to the ground, hard to knock over.",fatLevel:3,muscleLevel:5},
+      {word:"solid",cat:"build",tags:["mass","muscle"],def:"Dense and substantial. Reliable-feeling. Works for both muscle and mixed builds.",use:"Not big, exactly, but solid. Like she'd stay put in a strong wind.",fatLevel:4,muscleLevel:6},
+      {word:"sturdy",cat:"build",tags:["mass"],def:"Strong-framed and grounded. A little old-fashioned, good for historical or earthy contexts.",use:"Sturdy legs planted wide, arms crossed.",fatLevel:4,muscleLevel:5},
+      {word:"powerful",cat:"build",tags:["muscle","mass"],def:"Visibly strong. Muscle mass that implies real force, not just aesthetics.",use:"Powerful through the chest in a way that made the room feel smaller.",fatLevel:3,muscleLevel:8},
+      {word:"brawny",cat:"build",tags:["muscle","mass"],def:"Muscular in a rugged, physical-labor way. Big arms, thick chest. Functional strength.",use:"Brawny and sunburned, the kind of guy who fixed things.",fatLevel:4,muscleLevel:8},
+      {word:"burly",cat:"build",tags:["mass","muscle"],def:"Big and strong with a roughness to it. Less sculpted than built. Workman's body.",use:"Burly enough that his handshake felt like a structural decision.",fatLevel:5,muscleLevel:7},
+      {word:"hulking",cat:"build",tags:["mass","muscle"],def:"Large and heavy-framed, possibly intimidatingly so. Implies size over refinement.",use:"A hulking presence that blocked the light from the doorway.",fatLevel:6,muscleLevel:8},
+      {word:"broad",cat:"build",tags:["size","mass"],def:"Wide across the shoulders or hips. About horizontal span more than depth.",use:"Broad through the back, narrow through the waist.",fatLevel:4,muscleLevel:5},
+      {word:"stocky",cat:"build",tags:["mass","size"],def:"Solid and broad without being tall. Dense frame, often implies strength.",use:"Stocky in the way certain athletes are — thick through the chest and thighs.",fatLevel:5,muscleLevel:6},
+      {word:"statuesque",cat:"build",tags:["size","mass"],def:"Tall and impressively proportioned. Implies grandeur regardless of weight.",use:"Statuesque in heels, she cleared six feet and didn't apologize for it.",fatLevel:4,muscleLevel:6},
+      {word:"substantial",cat:"build",tags:["mass","fat"],def:"Has presence and size without specificity. Implies enough fat or mass to register.",use:"A substantial woman who filled the room.",fatLevel:7,muscleLevel:4},
+      {word:"thick",cat:"build",tags:["mass","fat"],def:"Significant mass, especially in the limbs. Casual, modern. Often implies softness over muscle.",use:"Thick through the thighs, the kind of body that looked good in motion.",fatLevel:7,muscleLevel:4},
+      {word:"heavyset",cat:"build",tags:["mass","fat"],def:"Larger-framed with more fat than muscle. Less clinical than 'overweight'.",use:"A heavyset man with a gentle face.",fatLevel:8,muscleLevel:3},
+      {word:"soft",cat:"build",tags:["fat","texture"],def:"Low muscle tone, visible fat, yielding to touch. Not pejorative on its own.",use:"Soft in the middle, the way people get when comfort wins.",fatLevel:7,muscleLevel:1},
+      {word:"plush",cat:"build",tags:["fat","texture"],def:"Soft and generous. Has a luxurious undertone. More affectionate than 'fat'.",use:"Plush and warm to the touch.",fatLevel:8,muscleLevel:1},
+      {word:"portly",cat:"build",tags:["fat","mass"],def:"Rounded and somewhat stout. Old-fashioned word, more dignified than its alternatives.",use:"A portly gentleman with a watch chain and a warm laugh.",fatLevel:8,muscleLevel:2},
+      {word:"rotund",cat:"build",tags:["fat","size"],def:"Round all over. Uniformly full. Has a slightly comic or affectionate tone.",use:"Rotund in the way of someone who has never denied himself a meal.",fatLevel:9,muscleLevel:1},
+      
+      // NEW WORDS - curvaceous, thickset, plush/pliant/pillowy style (lewd-appropriate but respectful)
+      {word:"curvaceous",cat:"build",tags:["size","fat"],def:"Having an attractively curved figure, especially with a narrow waist and full hips or bust. Celebrates shape and softness together.",use:"Curvaceous in a way that turned heads without her trying.",fatLevel:8,muscleLevel:3},
+      {word:"voluptuous",cat:"build",tags:["fat","size"],def:"Full-figured and sensually curved. Emphasizes generous, lush proportions in a positive light.",use:"Voluptuous in the way old master paintings celebrate — abundant and unapologetic.",fatLevel:8,muscleLevel:2},
+      {word:"thickset",cat:"build",tags:["mass","fat"],def:"Broad, dense, and solidly built. Thick through the trunk and limbs without necessarily being tall.",use:"Thickset like a tree trunk — immovable and grounded.",fatLevel:6,muscleLevel:5},
+      {word:"pillowy",cat:"build",tags:["fat","texture"],def:"Soft and cushioned all over, like a pillow. Invites closeness and comfort.",use:"Pillowy in all the places that make hugs linger longer than they should.",fatLevel:9,muscleLevel:0},
+      {word:"yielding",cat:"build",tags:["fat","texture"],def:"Soft and giving to the touch. Not firm, but warm, responsive, and alive.",use:"Yielding under his hand — all softness and invitation.",fatLevel:8,muscleLevel:1},
+      {word:"pliant",cat:"build",tags:["fat","texture"],def:"Flexible and soft in form. Easily shaped or pressed, with a living, responsive give.",use:"Pliant and warm, the kind of body that molds to yours without resistance.",fatLevel:7,muscleLevel:2},
+      {word:"buxom",cat:"build",tags:["fat","size"],def:"Full-bosomed and shapely. A historically positive term for generous upper-body curves.",use:"Buxom and blooming, she filled out the dress like it had been waiting for her.",fatLevel:7,muscleLevel:3},
+
+      // ── ARMS ──
+      {word:"bony",cat:"arms",tags:["lean"],def:"Bones clearly visible. Wrists, elbows, shoulders protrude. Often implies underweight.",use:"Bony wrists that looked like they could snap."},
+      {word:"slender",cat:"arms",tags:["lean","size"],def:"Thin and proportionate. No visible muscle or fat; a clean line.",use:"Slender arms that made her jewelry look oversized."},
+      {word:"wiry",cat:"arms",tags:["lean","muscle"],def:"Thin with unexpected tensile strength. More capable than they look.",use:"Wiry forearms that could carry more than you'd think."},
+      {word:"soft",cat:"arms",tags:["fat","texture"],def:"Some fat, no visible muscle. Yielding to the touch.",use:"Soft at the upper arm, the kind that swings a little when she waves."},
+      {word:"fleshy",cat:"arms",tags:["fat","texture"],def:"Real presence, some give. Fat and skin with a little underneath. Not large, just real.",use:"Fleshy upper arms, the kind that carry warmth in them."},
+      {word:"doughy",cat:"arms",tags:["fat","texture"],def:"Pale and soft with real give. Fat without density underneath.",use:"Doughy at the upper arm, pale as bread."},
+      {word:"padded",cat:"arms",tags:["fat"],def:"A soft layer over muscle or bone. Not large, just cushioned.",use:"Padded at the upper arm, soft where you'd want softness."},
+      {word:"rounded",cat:"arms",tags:["fat","size"],def:"Curves outward without being large. Has presence without mass.",use:"Rounded at the shoulder, filling the sleeve without straining it."},
+      {word:"full",cat:"arms",tags:["fat","size"],def:"Filled-out. Neither muscular nor heavy, but definitely there.",use:"Full arms that looked like they'd feel warm."},
+      {word:"thick",cat:"arms",tags:["mass","size"],def:"Wide and substantial. Could be muscle, fat, or both. Fills sleeves.",use:"Thick arms she folded across her chest like a barrier."},
+      {word:"meaty",cat:"arms",tags:["mass","muscle","fat"],def:"Substantial and dense. Muscle and fat together. Feels heavy. More than 'fleshy', less than 'beefy'.",use:"Meaty arms that suggested capability without being obviously built."},
+      {word:"beefy",cat:"arms",tags:["mass","muscle"],def:"Big and thick with implied muscle. Notably large. Has a slight comic overtone.",use:"Beefy forearms that strained his rolled sleeves."},
+      {word:"toned",cat:"arms",tags:["muscle"],def:"Some definition visible. Fat layer is thin enough to see the muscle shape underneath.",use:"Toned but not hard — you could see the shape without the striations."},
+      {word:"defined",cat:"arms",tags:["muscle"],def:"Clear muscle separation visible. Lean with intention.",use:"Defined through the forearm, veins faintly showing."},
+      {word:"muscled",cat:"arms",tags:["muscle"],def:"Noticeably developed. Not subtle — muscle is the dominant thing you see.",use:"Muscled in a way that made his t-shirts a tight fit."},
+      {word:"veined",cat:"arms",tags:["muscle","texture"],def:"Veins tracing the surface. Usually implies low body fat and some development.",use:"Veined at the forearm in a way that suggested years of grip work."},
+      {word:"corded",cat:"arms",tags:["muscle","texture"],def:"Muscle and tendon visibly distinct. Strong and lean.",use:"Corded forearms that said she'd done this kind of work before."},
+      {word:"ropy",cat:"arms",tags:["muscle","texture"],def:"Visible tendons and veins, long lean muscle. Sinewy and functional.",use:"Ropy with muscle, the kind of arms that knew what they were for."},
+
+      // ── LEGS ──
+      {word:"spindly",cat:"legs",tags:["lean","size"],def:"Very thin and long, almost fragile-looking.",use:"Spindly legs she hadn't grown into yet."},
+      {word:"slender",cat:"legs",tags:["lean","size"],def:"Thin and shapely. A clean, elongated line.",use:"Slender legs that looked good in anything."},
+      {word:"willowy",cat:"legs",tags:["lean","size"],def:"Long and very thin. Almost too thin to support the frame above.",use:"Willowy legs that seemed to belong to someone taller."},
+      {word:"lean",cat:"legs",tags:["lean","muscle"],def:"Long, with visible muscle and little fat. Runs or cycles.",use:"Lean legs that had covered a lot of ground."},
+      {word:"toned",cat:"legs",tags:["muscle"],def:"Visible muscle shape in the quad and calf. Lean enough to show.",use:"Toned calves from years of running."},
+      {word:"athletic",cat:"legs",tags:["muscle","size"],def:"Functional muscle, active-looking. Often implies some thickness at the quad.",use:"Athletic thighs that meant business."},
+      {word:"sculpted",cat:"legs",tags:["muscle"],def:"Defined muscle groups visible. Quads, hamstrings, calves all distinct.",use:"Sculpted calves that needed no help from heels."},
+      {word:"powerful",cat:"legs",tags:["muscle","mass"],def:"Significant muscle, especially in quads and hamstrings. Implies force.",use:"Powerful legs from years of sprinting, the kind that strained seams."},
+      {word:"ropy",cat:"legs",tags:["muscle","texture"],def:"Long, lean muscle. Visible tendons and calf definition without bulk.",use:"Ropy calves visible even at rest."},
+      {word:"soft",cat:"legs",tags:["fat","texture"],def:"Fat over the thigh and calf with little muscle definition.",use:"Soft through the thighs, dimpling slightly at the knee."},
+      {word:"full",cat:"legs",tags:["fat","size"],def:"Rounded and substantial. Filled out without being heavy.",use:"Full thighs that curved outward from the hip."},
+      {word:"dimpled",cat:"legs",tags:["fat","texture"],def:"Texture visible in the fat, especially at the thigh. Human, normal, specific.",use:"Dimpled at the thigh in a way she'd long made peace with."},
+      {word:"thick",cat:"legs",tags:["mass","fat"],def:"Substantial in girth. Can be muscle, fat, or both. Often warm-coded.",use:"Thick thighs she carried comfortably, without apology."},
+      {word:"meaty",cat:"legs",tags:["mass","fat","muscle"],def:"Substantial thigh and calf, fat and muscle together. Dense and present.",use:"Meaty thighs that filled jeans like jeans were made for them."},
+      {word:"heavy",cat:"legs",tags:["mass","fat"],def:"Significant weight to the lower body. Implies size and heft.",use:"Heavy thighs she moved deliberately, each step purposeful."},
+      {word:"stout",cat:"legs",tags:["mass","fat"],def:"Short and thick. More about width than length.",use:"Stout legs that planted her to the earth."},
+      {word:"sturdy",cat:"legs",tags:["mass","muscle"],def:"Planted and grounded. Wide-based, reliable-looking.",use:"Sturdy legs that gave her a low center of gravity."},
+      {word:"shapely",cat:"legs",tags:["size","texture"],def:"Well-proportioned curve, usually in the calf or thigh. Implies pleasing form.",use:"Shapely calves — the kind that look good in heels or flats."},
+      {word:"bowed",cat:"legs",tags:["size"],def:"Curved outward at the knee. Gaps between the legs when standing.",use:"Bowed legs that gave him a horseman's stance."},
+      {word:"knock-kneed",cat:"legs",tags:["size"],def:"Knees angle inward, ankles apart. Can look awkward or endearing.",use:"Knock-kneed but fast — she ran like she was falling forward."},
+
+      // ── TORSO ──
+      {word:"narrow",cat:"torso",tags:["lean","size"],def:"Slim through the shoulders or waist. Little horizontal span.",use:"Narrow shoulders that made her look younger than she was."},
+      {word:"slight",cat:"torso",tags:["lean","size"],def:"Small-framed, lacking bulk or presence.",use:"A slight torso, almost boyish through the chest."},
+      {word:"flat",cat:"torso",tags:["lean"],def:"No visible fat or muscle in the midsection. Just skin and ribs.",use:"Flat stomach, the kind you'd notice."},
+      {word:"concave",cat:"torso",tags:["lean"],def:"Stomach dips inward at rest. Visible in profile.",use:"A concave stomach visible even in a loose shirt."},
+      {word:"sunken",cat:"torso",tags:["lean"],def:"More extreme than concave. Ribs visible, belly below the hip bones.",use:"Sunken at the chest, ribs printed on the skin."},
+      {word:"hollow-chested",cat:"torso",tags:["lean"],def:"Chest dips inward rather than projecting. Often paired with narrow shoulders.",use:"Hollow-chested, the sternum a visible ridge."},
+      {word:"waspy",cat:"torso",tags:["lean","size"],def:"Very narrow-waisted relative to hips or chest. An exaggerated hourglass.",use:"A waspy middle that made her silhouette dramatic."},
+      {word:"lean-waisted",cat:"torso",tags:["lean","size"],def:"Narrow through the midsection regardless of what's above or below.",use:"Lean-waisted in a way that made his shoulders look enormous."},
+      {word:"taut",cat:"torso",tags:["muscle","texture"],def:"Tight with low fat. Not necessarily defined, but without give.",use:"A taut stomach she held in without meaning to."},
+      {word:"toned",cat:"torso",tags:["muscle"],def:"Some ab definition visible. Low fat, light muscle.",use:"Toned enough to see the ghost of her stomach muscles."},
+      {word:"defined",cat:"torso",tags:["muscle"],def:"Clear muscle separation in abs. Lean and deliberate.",use:"Defined abs that meant she'd earned them."},
+      {word:"broad",cat:"torso",tags:["size","mass"],def:"Wide across the chest or back. About span more than depth.",use:"Broad across the back, narrowing to nothing at the waist."},
+      {word:"barrel-chested",cat:"torso",tags:["mass","size"],def:"Chest projects outward with significant depth. Deep ribcage.",use:"Barrel-chested, taking up more of the doorframe than seemed necessary."},
+      {word:"meaty",cat:"torso",tags:["mass","muscle"],def:"Chest and back that have real presence. Dense, not just large.",use:"Meaty through the chest, the kind of torso shirts disagree with."},
+      {word:"straight",cat:"torso",tags:["lean","size"],def:"Little taper between chest and hip. No curves in or out. Clean vertical line.",use:"Straight through the trunk, like a plank in a good way."},
+      {word:"hourglass",cat:"torso",tags:["size"],def:"Chest and hips roughly equal, waist distinctly narrower. Classic proportion.",use:"A genuine hourglass — not manufactured, just the way she was built."},
+      {word:"thick-waisted",cat:"torso",tags:["mass","fat"],def:"No taper at the midsection. Waist and hips close in measurement.",use:"Thick-waisted in a way that made tailoring difficult."},
+      {word:"soft",cat:"torso",tags:["fat","texture"],def:"Belly has give. A layer of fat over the midsection. Human and warm.",use:"Soft through the belly, the way comfortable people get."},
+      {word:"rounded",cat:"torso",tags:["fat","size"],def:"Belly curves outward gently. Not large, just present.",use:"A rounded stomach she'd stopped fighting."},
+      {word:"full",cat:"torso",tags:["fat","size"],def:"Present midsection without being heavy. Filled out.",use:"Full through the middle in a way that looked earned rather than given."},
+      {word:"paunchy",cat:"torso",tags:["fat"],def:"Belly protrudes, especially low. Middle-aged in feel. Specific to the front.",use:"Paunchy in the way that happens gradually, shirt pulling at the button."},
+      {word:"potbellied",cat:"torso",tags:["fat","size"],def:"Distinct belly that leads the body. Rounds forward from the navel.",use:"Potbellied but not heavy — all of it collected in one place."},
+      {word:"pillowy",cat:"torso",tags:["fat","texture"],def:"Soft and abundant. Breasts or belly that yield visibly. More specific than 'soft'.",use:"Pillowy through the chest, soft to press against."},
+
+      // ── BREASTS (new category for detailed/smut-friendly descriptors) ──
+      {word:"full",cat:"breasts",tags:["size","fat"],def:"Generously proportioned and rounded. A classic positive descriptor with pleasing weight.",use:"Her full breasts strained the buttons of her blouse with every breath."},
+      {word:"heavy",cat:"breasts",tags:["size","fat"],def:"Substantial weight and presence. Implies a sensual heft that moves naturally.",use:"Heavy breasts that swayed with each step, drawing the eye."},
+      {word:"pert",cat:"breasts",tags:["size","muscle"],def:"Perky and uplifted. Often youthful or naturally firm with good tone.",use:"Pert breasts that needed no support and sat high on her chest."},
+      {word:"perky",cat:"breasts",tags:["size"],def:"Lively and uplifted. Cheerful, bouncy quality that feels energetic.",use:"Perky breasts that defied gravity in the most delightful way."},
+      {word:"round",cat:"breasts",tags:["size"],def:"Perfectly spherical or domed shape. Classic idealized feminine form.",use:"Round breasts that filled his hands perfectly, warm and yielding."},
+      {word:"teardrop",cat:"breasts",tags:["size"],def:"Natural shape wider at the base, tapering upward. Realistic and softly feminine.",use:"Teardrop breasts with a gentle slope that felt incredibly natural."},
+      {word:"pendulous",cat:"breasts",tags:["size","fat"],def:"Hanging with natural weight and maturity. Suggests fullness and movement.",use:"Pendulous breasts that moved with a hypnotic, heavy sway."},
+      {word:"ample",cat:"breasts",tags:["size","fat"],def:"Plentiful and generous. Positive term for larger, luxurious size.",use:"Ample breasts that created deep, inviting cleavage."},
+      {word:"pillowy",cat:"breasts",tags:["fat","texture"],def:"Soft and cushioned. Extremely inviting to touch and press against.",use:"Pillowy breasts that molded warmly to his palms and chest."},
+      {word:"lush",cat:"breasts",tags:["fat","texture"],def:"Rich, full, and sensually abundant. Suggests ripeness and luxury.",use:"Lush breasts that begged to be kissed and explored slowly."},
+      {word:"ripe",cat:"breasts",tags:["fat"],def:"Mature, full, and ready. Evokes a sense of juicy ripeness.",use:"Ripe breasts that felt warm, heavy, and perfectly ready."},
+      {word:"voluptuous",cat:"breasts",tags:["fat","size"],def:"Sensually curved and generously proportioned. Celebrates abundance.",use:"Voluptuous breasts that completed her dramatic hourglass silhouette."},
+      {word:"firm",cat:"breasts",tags:["muscle","texture"],def:"Taut and resilient. Good muscle tone or youthful firmness.",use:"Firm breasts that barely moved when she laughed or walked."},
+      {word:"soft",cat:"breasts",tags:["fat","texture"],def:"Yielding and gentle. Comforting, warm, and deeply inviting.",use:"Soft breasts that felt like heaven pressed against his bare chest."},
+      {word:"modest",cat:"breasts",tags:["size","lean"],def:"Smaller and understated. Elegant, proportionate, and refined.",use:"Modest breasts that suited her athletic, boyish frame perfectly."},
+      {word:"petite",cat:"breasts",tags:["size","lean"],def:"Small and delicate. Cute, proportionate, and often perky.",use:"Petite breasts that fit perfectly in his hands, sensitive and responsive."},
+      {word:"swollen",cat:"breasts",tags:["fat","texture"],def:"Tender and slightly enlarged, often from arousal or sensitivity.",use:"Swollen breasts that ached pleasantly under his attention."},
+      {word:"taut",cat:"breasts",tags:["muscle","texture"],def:"Tight and stretched. Suggests arousal, youth, or tension.",use:"Taut breasts with nipples that stood out prominently."},
+
+      // ── ASS (new category for detailed/smut-friendly descriptors) ──
+      {word:"round",cat:"ass",tags:["size"],def:"Perfectly curved and domed. Classic attractive, feminine shape.",use:"Round ass that filled out her jeans in the most satisfying way."},
+      {word:"plump",cat:"ass",tags:["fat","size"],def:"Full, juicy, and soft with pleasant give. Very sensual.",use:"Plump ass that jiggled enticingly with every step she took."},
+      {word:"firm",cat:"ass",tags:["muscle","texture"],def:"Taut, resilient, and toned. Athletic or naturally tight.",use:"Firm ass that felt solid and perfect under his gripping hands."},
+      {word:"heart-shaped",cat:"ass",tags:["size"],def:"Wider at the hips, tapering toward the center. Very feminine ideal.",use:"Heart-shaped ass that gave her silhouette a dramatic, feminine curve."},
+      {word:"bubble",cat:"ass",tags:["size","fat"],def:"Prominent, rounded, and perky. Youthful, eye-catching, and bouncy.",use:"Bubble ass that turned heads and begged to be grabbed."},
+      {word:"pert",cat:"ass",tags:["size","muscle"],def:"Uplifted, tight, and perky. Lively and proud posture.",use:"Pert ass that sat high and proud, demanding attention."},
+      {word:"thick",cat:"ass",tags:["mass","fat"],def:"Substantial, generous, and modern-positive. Has real presence.",use:"Thick ass she carried with unapologetic confidence and sway."},
+      {word:"pillowy",cat:"ass",tags:["fat","texture"],def:"Soft, cushioned, and extremely inviting to touch or rest against.",use:"Pillowy ass that felt incredible to grab and squeeze."},
+      {word:"meaty",cat:"ass",tags:["mass","fat"],def:"Dense, substantial, and full. Has weight and satisfying presence.",use:"Meaty ass that filled his hands completely and then some."},
+      {word:"shelf",cat:"ass",tags:["size","muscle"],def:"Projects outward prominently, creating a dramatic 'shelf' effect.",use:"Shelf-like ass that projected out and demanded to be noticed."},
+      {word:"juicy",cat:"ass",tags:["fat","texture"],def:"Plump and suggestive of ripeness and moisture. Highly sensual.",use:"Juicy ass that looked good enough to bite or bury his face in."},
+      {word:"cushioned",cat:"ass",tags:["fat","texture"],def:"Soft padding with comfortable give. Warm and welcoming.",use:"Cushioned ass that made sitting on his lap an absolute pleasure."},
+      {word:"perky",cat:"ass",tags:["size","muscle"],def:"Lively, uplifted, and tight. Bouncy and full of life.",use:"Perky ass that bounced beautifully with every confident step."},
+      {word:"wide",cat:"ass",tags:["size","mass"],def:"Broad across the hips. Emphasizes generous width and presence.",use:"Wide ass that swayed hypnotically as she walked away."},
+      {word:"apple-shaped",cat:"ass",tags:["size"],def:"Rounded and prominent like a ripe apple. Cute, full, and inviting.",use:"Apple-shaped ass that was impossible to look away from."},
+      {word:"thickset",cat:"ass",tags:["mass","fat"],def:"Broad, dense, and solidly built through the lower body.",use:"Thickset ass that gave her a grounded, powerful stance."},
+
+      // ── FACE ──
+      {word:"angular",cat:"face",tags:["lean"],def:"Bones visible and dominant. Jaw, cheekbones, eye sockets prominent.",use:"An angular face that looked good in photos and unforgiving in person."},
+      {word:"sharp",cat:"face",tags:["lean","texture"],def:"Clean edges, no softening from fat. Jaw and nose are prominent.",use:"Sharp features she'd inherited from her father."},
+      {word:"hollow",cat:"face",tags:["lean"],def:"Cheeks sunken, temples visible. Implies low body fat or weight loss.",use:"Hollow cheeks that made her eyes look larger."},
+      {word:"gaunt",cat:"face",tags:["lean"],def:"Hollowness past the point of aesthetics. Implies underweight or illness.",use:"Gaunt at the cheeks, skin pulling at the jaw."},
+      {word:"sculpted",cat:"face",tags:["lean","muscle"],def:"Defined bone structure, visibly carved. Often implies beauty.",use:"A sculpted face — the kind people drew."},
+      {word:"craggy",cat:"face",tags:["texture","lean"],def:"Deep lines, jutting features, rough surface. Age or hardship visible. Often compelling.",use:"Craggy in the way certain men get that reads as character rather than damage."},
+      {word:"fine-featured",cat:"face",tags:["lean","size"],def:"Small, precise features. Nose, eyes, mouth all delicate.",use:"Fine-featured, almost miniature in her proportions."},
+      {word:"long-faced",cat:"face",tags:["lean","size"],def:"Face is elongated vertically. Forehead, nose, and chin all stretched.",use:"Long-faced in a way that photographers loved and he didn't."},
+      {word:"snub-nosed",cat:"face",tags:["size"],def:"Nose short and turned up at the tip. Often described as cute or impish.",use:"Snub-nosed, freckled — a face that made people smile back involuntarily."},
+      {word:"heart-shaped",cat:"face",tags:["size"],def:"Wide at the temples and cheekbones, narrowing to a point at the chin.",use:"A heart-shaped face, all forehead and pointed chin."},
+      {word:"broad",cat:"face",tags:["size"],def:"Wide across the cheekbones or jaw. Horizontal emphasis.",use:"A broad face with strong Slavic cheekbones."},
+      {word:"square-jawed",cat:"face",tags:["size","muscle"],def:"Jaw line is straight and prominent. Looks strong.",use:"Square-jawed and direct, a face that said 'I've been somewhere.'"},
+      {word:"strong-jawed",cat:"face",tags:["size","muscle"],def:"Jaw is prominent and clearly defined, even without bulk. Implies will.",use:"Strong-jawed in a way that made her look decisive even asleep."},
+      {word:"asymmetric",cat:"face",tags:["size"],def:"Left and right sides don't quite match. Interesting more than flaw.",use:"Asymmetric in a way you noticed over time, not all at once."},
+      {word:"soft",cat:"face",tags:["fat","texture"],def:"Rounded edges, fat padding the cheeks and jaw. Youthful or cozy.",use:"A soft face, the kind people trusted instinctively."},
+      {word:"round",cat:"face",tags:["fat","size"],def:"Face widens uniformly. Cheeks, chin, and jaw all share the same curve.",use:"A round face that lit up when she smiled."},
+      {word:"full",cat:"face",tags:["fat","size"],def:"Present cheeks and jaw. Not round exactly, but not sharp either.",use:"Full cheeks she'd had since childhood."},
+      {word:"chubby-cheeked",cat:"face",tags:["fat"],def:"Fat specifically in the cheeks, padding them outward.",use:"Chubby-cheeked even now, years past childhood."},
+      {word:"cherubic",cat:"face",tags:["fat","size"],def:"Round, soft, and innocent-looking. Cheeks and nose especially full. Often ageless.",use:"Cherubic even now — the face that made strangers trust her."},
+      {word:"jowly",cat:"face",tags:["fat","size"],def:"Fat or loose skin at the jaw and neck, pulling the face downward.",use:"Jowly in the way older men get when gravity starts winning."},
+      {word:"ruddy",cat:"face",tags:["texture"],def:"Red or flushed in the cheeks. Implies health, cold air, or drink.",use:"Ruddy from the wind, cheeks perpetually pink."},
+      {word:"sallow",cat:"face",tags:["texture"],def:"Yellowish or pale. Implies illness, exhaustion, or poor circulation.",use:"Sallow skin stretched over sharp bones — not well, not well at all."},
+      {word:"weathered",cat:"face",tags:["texture"],def:"Lines, roughness, evidence of time or exposure. Not about fat or muscle.",use:"A weathered face that had seen weather."},
+      {word:"leathery",cat:"face",tags:["texture"],def:"Thick, tough, and tanned from exposure. Long past weathered.",use:"Leathery from decades of salt air and not caring about sunscreen."},
+      {word:"dewy",cat:"face",tags:["texture"],def:"Smooth, plump, almost luminous. Youth or health in the skin itself.",use:"Dewy skin stretched over good bones."},
+
+      // ── TEXTURE ──
+      {word:"smooth",cat:"texture",tags:["texture"],def:"No texture variation. Skin lies flat, neither tight nor bumpy.",use:"Smooth skin with nothing to catch the light."},
+      {word:"silken",cat:"texture",tags:["texture"],def:"Extremely smooth. Frictionless. Implies health, youth, or exceptional genetics.",use:"Silken skin that made it hard to let go."},
+      {word:"velvety",cat:"texture",tags:["texture"],def:"Soft and slightly napped. Implies very fine, short hair or unusually smooth skin.",use:"Velvety at the inner arm, the kind of soft you notice by accident."},
+      {word:"luminous",cat:"texture",tags:["texture"],def:"Skin holds light. Glowing rather than reflective.",use:"Luminous in a way that had nothing to do with makeup."},
+      {word:"dewy",cat:"texture",tags:["texture"],def:"Fresh moisture in the skin. Not sweaty — vital.",use:"Dewy at the temples, skin alive with it."},
+      {word:"supple",cat:"texture",tags:["texture"],def:"Flexible and yielding, with a sense of health or youth. Resists damage.",use:"Supple skin that held its shape when pressed."},
+      {word:"downy",cat:"texture",tags:["texture"],def:"Soft with fine hair. Implies softness and closeness.",use:"Downy at the forearms, catching the light."},
+      {word:"freckled",cat:"texture",tags:["texture"],def:"Small spots of pigment, especially on lighter skin. Implies sun exposure or genetics.",use:"Freckled across the shoulders like a map of summers."},
+      {word:"tanned",cat:"texture",tags:["texture"],def:"Sun-darkened. Can be even or patchy. Implies outdoor time.",use:"Tanned to the sleeve line, white above it."},
+      {word:"ruddy",cat:"texture",tags:["texture"],def:"Reddish-toned overall, beyond the cheeks. Wind-burned or circulatory.",use:"Ruddy even in winter, a complexion that held onto weather."},
+      {word:"mottled",cat:"texture",tags:["texture"],def:"Uneven color or tone — blotches, patches, variation. Looks lived-in.",use:"Mottled at the chest from years of sun."},
+      {word:"taut",cat:"texture",tags:["texture","muscle"],def:"Pulled tight. No slack in the skin. Usually low body fat.",use:"Taut across the chest, almost drum-tight."},
+      {word:"translucent",cat:"texture",tags:["texture","lean"],def:"Skin thin enough to see through slightly. Veins and tendons faintly visible beneath.",use:"Translucent skin at the temple, faint blue visible underneath."},
+      {word:"papery",cat:"texture",tags:["texture"],def:"Skin thin and dry, almost translucent. Often implies age or illness.",use:"Papery skin over the back of her hand, veins close to the surface."},
+      {word:"slack",cat:"texture",tags:["texture","fat"],def:"Loose, without tension. Either post-weight-loss or age-related. The skin doesn't hold.",use:"Slack at the upper arm, swaying slightly."},
+      {word:"doughy",cat:"texture",tags:["fat","texture"],def:"Soft and yielding, like unset bread. Implies passivity and low tone.",use:"Doughy at the midsection, giving without resistance."},
+      {word:"sinewy",cat:"texture",tags:["muscle","texture"],def:"Ropy and lean. Tendons visible. Strength without mass.",use:"Sinewy forearms knotting as she gripped the rail."},
+      {word:"veined",cat:"texture",tags:["texture","muscle"],def:"Veins near the surface. Can be delicate and elegant or ropy and prominent.",use:"Veined at the wrist, fine lines under pale skin."},
+      {word:"coarse",cat:"texture",tags:["texture"],def:"Rough to the touch. Large pores or thickened skin. Often implies labor or outdoor life.",use:"Coarse at the heel, the hand, the elbow."},
+      {word:"weathered",cat:"texture",tags:["texture"],def:"Roughened by exposure. Creases, sun damage, story in the skin.",use:"Weathered hands that had worked for things."},
+      {word:"pocked",cat:"texture",tags:["texture"],def:"Small divots or scars in the skin surface. Acne history, old injury, disease.",use:"Pocked at the cheek in a way that told a teenage story."},
+      {word:"clammy",cat:"texture",tags:["texture"],def:"Damp and slightly cool to the touch. Nervousness or poor circulation.",use:"Clammy at the handshake, cool where warmth was expected."},
+      {word:"bristled",cat:"texture",tags:["texture"],def:"Short, coarse stubble or body hair that catches the hand.",use:"Bristled at the jaw and neck, cheek rough as sandpaper."}
+    ];
+
+    // Assign default sizeLevel based on existing fat/muscle levels or tags (for sorting/filtering)
+    words.forEach(w => {
+      if (w.sizeLevel === undefined) {
+        if (w.fatLevel !== undefined && w.muscleLevel !== undefined) {
+          w.sizeLevel = Math.max(0, Math.min(10, Math.round((w.fatLevel + w.muscleLevel) / 2)));
+        } else if (w.tags.includes('lean') || (w.tags.includes('size') && !w.tags.includes('mass') && !w.tags.includes('fat'))) {
+          w.sizeLevel = 2;
+        } else if (w.tags.includes('mass') || w.tags.includes('fat')) {
+          w.sizeLevel = 7;
+        } else if (w.cat === 'breasts' || w.cat === 'ass') {
+          if (['modest', 'petite', 'pert', 'perky'].includes(w.word)) w.sizeLevel = 2;
+          else if (['full', 'heavy', 'ample', 'pillowy', 'lush', 'ripe', 'voluptuous', 'thick', 'meaty', 'juicy'].includes(w.word)) w.sizeLevel = 8;
+          else w.sizeLevel = 5;
+        } else {
+          w.sizeLevel = 5;
+        }
+      }
+    });
+
+    let currentTab = 'all';
+    let searchQ = '';
+    let currentPopupWord = null;
+
+    function makeTags(tags) {
+      return tags.map(t => {
+        const cls = TAG_CLASS[t] || 'bg-zinc-100 text-zinc-600';
+        return `<span class="tag-pill px-2.5 py-px rounded-full ${cls}">${t}</span>`;
+      }).join('');
+    }
+
+    function getFiltered() {
+      let result = words.filter(w => {
+        const matchTab = currentTab === 'all' || w.cat === currentTab;
+        const q = searchQ.toLowerCase().trim();
+        const matchSearch = !q || 
+          w.word.toLowerCase().includes(q) || 
+          w.def.toLowerCase().includes(q) || 
+          w.tags.some(t => t.includes(q));
+        
+        const sLevel = (w.sizeLevel !== undefined) ? w.sizeLevel : 5;
+        const matchSize = sLevel >= sizeMin && sLevel <= sizeMax;
+        
+        return matchTab && matchSearch && matchSize;
+      });
+      
+      if (currentSort === 'size-asc') {
+        result.sort((a, b) => {
+          const sa = (a.sizeLevel !== undefined) ? a.sizeLevel : 5;
+          const sb = (b.sizeLevel !== undefined) ? b.sizeLevel : 5;
+          return sa - sb;
+        });
+      } else if (currentSort === 'size-desc') {
+        result.sort((a, b) => {
+          const sa = (a.sizeLevel !== undefined) ? a.sizeLevel : 5;
+          const sb = (b.sizeLevel !== undefined) ? b.sizeLevel : 5;
+          return sb - sa;
+        });
+      }
+      
+      return result;
+    }
+
+    function render() {
+      const filtered = getFiltered();
+      const container = document.getElementById('bdg-sections');
+      const noResults = document.getElementById('bdg-no-results');
+      
+      if (filtered.length === 0) {
+        noResults.classList.remove('hidden');
+        container.innerHTML = '';
+        return;
+      }
+      
+      noResults.classList.add('hidden');
+      
+      if (currentTab === 'all') {
+        const byCat = {};
+        filtered.forEach(w => {
+          if (!byCat[w.cat]) byCat[w.cat] = [];
+          byCat[w.cat].push(w);
+        });
+        
+        container.innerHTML = Object.entries(byCat).map(([cat, ws]) => `
+          <div>
+            <div class="section-header mb-3 px-1 text-zinc-500">${CAT_LABELS[cat] || cat}</div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+              ${ws.map(c => makeCard(c)).join('')}
+            </div>
+          </div>
+        `).join('');
+      } else {
+        container.innerHTML = `
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+            ${filtered.map(c => makeCard(c)).join('')}
+          </div>
+        `;
+      }
+    }
+
+    function makeCard(w) {
+      const catColors = {
+        build: 'border-purple-400 hover:border-purple-500',
+        arms: 'border-sky-400 hover:border-sky-500',
+        legs: 'border-emerald-400 hover:border-emerald-500',
+        torso: 'border-amber-400 hover:border-amber-500',
+        breasts: 'border-pink-400 hover:border-pink-500',
+        ass: 'border-orange-400 hover:border-orange-500',
+        face: 'border-pink-400 hover:border-pink-500',
+        texture: 'border-rose-400 hover:border-rose-500'
+      };
+      const accent = catColors[w.cat] || 'border-zinc-300';
+      
+      const preview = w.def.length > 110 ? w.def.substring(0, 107) + '...' : w.def;
+      
+      return `
+        <div onclick="bdgOpenPopup('${w.word}')" 
+             class="descriptor-card group bg-white border ${accent} rounded-2xl p-4 cursor-pointer active:scale-[0.985] transition-all hover:shadow-md">
+          <div class="flex justify-between items-start gap-2">
+            <div class="font-semibold text-[15.5px] tracking-[-0.015em] leading-tight">${w.word}</div>
+            <div class="text-[9px] px-2 py-px rounded-xl bg-zinc-100 text-zinc-500 font-medium flex-shrink-0 mt-px">${CAT_LABELS[w.cat] || w.cat}</div>
+          </div>
+          <div class="mt-2.5 text-sm text-zinc-600 leading-snug line-clamp-3">${preview}</div>
+          <div class="mt-3 flex flex-wrap gap-1">${makeTags(w.tags)}</div>
+        </div>
+      `;
+    }
+
+    function bdgOpenPopup(word) {
+      const w = words.find(x => x.word === word);
+      if (!w) return;
+      
+      currentPopupWord = w;
+      
+      document.getElementById('bdg-popup-word').textContent = w.word;
+      document.getElementById('bdg-popup-def').textContent = w.def;
+      document.getElementById('bdg-popup-use').innerHTML = `“${w.use}”`;
+      document.getElementById('bdg-popup-tags').innerHTML = makeTags(w.tags);
+      
+      const bar = document.getElementById('bdg-popup-bar');
+      bar.style.background = CAT_GRADIENTS[w.cat] || '#6366f1';
+      
+      const overlay = document.getElementById('bdg-overlay');
+      overlay.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function bdgClosePopup(e) {
+      if (e && e.target.id !== 'bdg-overlay') return;
+      const overlay = document.getElementById('bdg-overlay');
+      overlay.style.display = 'none';
+      document.body.style.overflow = '';
+      currentPopupWord = null;
+    }
+
+    function copyDescriptor() {
+      if (!currentPopupWord) return;
+      
+      const text = `${currentPopupWord.word}\n\n${currentPopupWord.def}\n\nExample: ${currentPopupWord.use}`;
+      
+      navigator.clipboard.writeText(text).then(() => {
+        const btns = document.querySelectorAll('#bdg-overlay button');
+        const originalTexts = [];
+        
+        btns.forEach((btn, i) => {
+          if (btn.textContent.includes('Copy')) {
+            originalTexts[i] = btn.innerHTML;
+            btn.innerHTML = `<i class="fa-solid fa-check"></i> <span>Copied!</span>`;
+            btn.style.background = '#166534';
+            
+            setTimeout(() => {
+              if (btn && btn.parentNode) {
+                btn.innerHTML = originalTexts[i] || `<i class="fa-solid fa-copy"></i> <span>Copy descriptor</span>`;
+                btn.style.background = '';
+              }
+            }, 1600);
+          }
+        });
+      }).catch(() => {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        alert('Copied to clipboard!');
+      });
+    }
+
+    function bdgShowSpec(word) {
+      const w = words.find(x => x.word === word);
+      const panel = document.getElementById('bdg-spec-detail');
+      
+      if (!w) {
+        panel.innerHTML = `<div class="text-sm text-zinc-500">No definition available for “${word}”.</div>`;
+        return;
+      }
+      
+      panel.innerHTML = `
+        <div class="flex items-start justify-between">
+          <div>
+            <div class="font-semibold text-xl tracking-tight">${w.word}</div>
+            <div class="text-sm text-zinc-600 mt-1 leading-relaxed">${w.def}</div>
+          </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-zinc-100 text-xs italic text-zinc-500">“${w.use}”</div>
+        <div class="mt-3">${makeTags(w.tags)}</div>
+      `;
+    }
+
+    function bdgTab(tab, el) {
+      currentTab = tab;
+      
+      document.querySelectorAll('.bdg-tab').forEach(t => {
+        t.classList.remove('active', 'bg-zinc-900', 'text-white');
+        t.classList.add('hover:bg-white', 'border', 'border-transparent', 'hover:border-zinc-200');
+      });
+      
+      el.classList.add('active', 'bg-zinc-900', 'text-white');
+      el.classList.remove('hover:bg-white', 'border', 'border-transparent', 'hover:border-zinc-200');
+      
+      const wordView = document.getElementById('bdg-word-view');
+      const spectrumView = document.getElementById('bdg-spectrum-view');
+      const matcherView = document.getElementById('bdg-matcher-view');
+      const sizeControls = document.getElementById('bdg-size-controls');
+      
+      wordView.classList.add('hidden');
+      spectrumView.classList.add('hidden');
+      matcherView.classList.add('hidden');
+      if (sizeControls) sizeControls.classList.add('hidden');
+      
+      if (tab === 'spectrum') {
+        spectrumView.classList.remove('hidden');
+      } else if (tab === 'matcher') {
+        matcherView.classList.remove('hidden');
+        setTimeout(() => {
+          const fatSlider = document.getElementById('fat-slider');
+          const muscSlider = document.getElementById('muscle-slider');
+          if (fatSlider && muscSlider) {
+            updateMatcherLabels();
+            updateMatcher();
+          }
+        }, 50);
+      } else {
+        wordView.classList.remove('hidden');
+        if (sizeControls) sizeControls.classList.remove('hidden');
+        render();
+      }
+    }
+
+    function updateMatcherLabels() {
+      const fatSlider = document.getElementById('fat-slider');
+      const muscSlider = document.getElementById('muscle-slider');
+      if (!fatSlider || !muscSlider) return;
+      
+      document.getElementById('fat-label').textContent = fatLabels[parseInt(fatSlider.value)];
+      document.getElementById('muscle-label').textContent = muscleLabels[parseInt(muscSlider.value)];
+    }
+
+    function updateMatcher() {
+      const fatSlider = document.getElementById('fat-slider');
+      const muscSlider = document.getElementById('muscle-slider');
+      const grid = document.getElementById('matcher-grid');
+      
+      if (!fatSlider || !muscSlider || !grid) return;
+      
+      const fatVal = parseInt(fatSlider.value);
+      const muscVal = parseInt(muscSlider.value);
+      
+      document.getElementById('fat-label').textContent = fatLabels[fatVal];
+      document.getElementById('muscle-label').textContent = muscleLabels[muscVal];
+      
+      let matches = words.filter(w => {
+        if (w.cat !== 'build' || w.fatLevel === undefined || w.muscleLevel === undefined) return false;
+        return Math.abs(w.fatLevel - fatVal) <= 2.5 && Math.abs(w.muscleLevel - muscVal) <= 2.5;
+      });
+      
+      matches.sort((a, b) => {
+        const da = Math.abs(a.fatLevel - fatVal) + Math.abs(a.muscleLevel - muscVal);
+        const db = Math.abs(b.fatLevel - fatVal) + Math.abs(b.muscleLevel - muscVal);
+        return da - db;
+      });
+      
+      if (matches.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full bg-zinc-50 border border-dashed border-zinc-200 rounded-2xl p-8 text-center">
+            <p class="text-sm text-zinc-500">No descriptors perfectly match this exact combination.<br>Try moving the sliders slightly.</p>
+          </div>
+        `;
+      } else {
+        grid.innerHTML = matches.map(w => makeCard(w)).join('');
+      }
+    }
+
+    function resetMatcher() {
+      const fatSlider = document.getElementById('fat-slider');
+      const muscSlider = document.getElementById('muscle-slider');
+      
+      if (fatSlider) fatSlider.value = 5;
+      if (muscSlider) muscSlider.value = 5;
+      
+      updateMatcherLabels();
+      updateMatcher();
+    }
+
+    function setSort(mode, el) {
+      currentSort = mode;
+      
+      document.querySelectorAll('.sort-btn').forEach(b => {
+        b.classList.remove('active', 'bg-zinc-900', 'text-white');
+        b.classList.add('hover:bg-zinc-50', 'text-zinc-600');
+      });
+      
+      el.classList.add('active', 'bg-zinc-900', 'text-white');
+      el.classList.remove('hover:bg-zinc-50', 'text-zinc-600');
+      
+      render();
+    }
+
+    function applySizeFilter() {
+      const minSlider = document.getElementById('size-min');
+      const maxSlider = document.getElementById('size-max');
+      if (!minSlider || !maxSlider) return;
+      
+      let minVal = parseInt(minSlider.value);
+      let maxVal = parseInt(maxSlider.value);
+      
+      if (minVal > maxVal) {
+        if (document.activeElement && document.activeElement.id === 'size-min') {
+          maxSlider.value = minVal;
+          maxVal = minVal;
+        } else {
+          minSlider.value = maxVal;
+          minVal = maxVal;
+        }
+      }
+      
+      sizeMin = minVal;
+      sizeMax = maxVal;
+      
+      document.getElementById('size-min-label').textContent = sizeMin;
+      document.getElementById('size-max-label').textContent = sizeMax;
+      
+      render();
+    }
+
+    function resetSizeFilter() {
+      const minSlider = document.getElementById('size-min');
+      const maxSlider = document.getElementById('size-max');
+      
+      if (minSlider) minSlider.value = 0;
+      if (maxSlider) maxSlider.value = 10;
+      
+      sizeMin = 0;
+      sizeMax = 10;
+      
+      const minLabel = document.getElementById('size-min-label');
+      const maxLabel = document.getElementById('size-max-label');
+      if (minLabel) minLabel.textContent = '0';
+      if (maxLabel) maxLabel.textContent = '10';
+      
+      currentSort = 'default';
+      document.querySelectorAll('.sort-btn').forEach(b => {
+        b.classList.remove('active', 'bg-zinc-900', 'text-white');
+        b.classList.add('hover:bg-zinc-50', 'text-zinc-600');
+        if (b.textContent.trim() === 'Default') {
+          b.classList.add('active', 'bg-zinc-900', 'text-white');
+          b.classList.remove('hover:bg-zinc-50', 'text-zinc-600');
+        }
+      });
+      
+      render();
+    }
+
+    function bdgFilter(q) {
+      searchQ = q;
+      
+      if (q && (currentTab === 'spectrum' || currentTab === 'matcher')) {
+        currentTab = 'all';
+        document.querySelectorAll('.bdg-tab').forEach(t => t.classList.remove('active', 'bg-zinc-900', 'text-white'));
+        const allTab = Array.from(document.querySelectorAll('.bdg-tab')).find(t => t.textContent.trim() === 'All');
+        if (allTab) allTab.classList.add('active', 'bg-zinc-900', 'text-white');
+        
+        document.getElementById('bdg-spectrum-view').classList.add('hidden');
+        document.getElementById('bdg-matcher-view').classList.add('hidden');
+        document.getElementById('bdg-word-view').classList.remove('hidden');
+        
+        const sizeControls2 = document.getElementById('bdg-size-controls');
+        if (sizeControls2) sizeControls2.classList.remove('hidden');
+      }
+      
+      render();
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        const overlay = document.getElementById('bdg-overlay');
+        if (!overlay.classList.contains('hidden') && overlay.style.display !== 'none') {
+          bdgClosePopup();
+        }
+      }
+      
+      if (e.key === '/' && document.activeElement.tagName === 'BODY') {
+        e.preventDefault();
+        document.getElementById('bdg-search').focus();
+      }
+    });
+
+    function init() {
+      document.querySelectorAll('.bdg-tab').forEach(btn => {
+        if (!btn.classList.contains('active')) {
+          btn.classList.add('hover:bg-white', 'border', 'border-transparent', 'hover:border-zinc-200');
+        }
+      });
+      
+      initDarkMode();
+      
+      const minLabel = document.getElementById('size-min-label');
+      const maxLabel = document.getElementById('size-max-label');
+      if (minLabel) minLabel.textContent = sizeMin;
+      if (maxLabel) maxLabel.textContent = sizeMax;
+      
+      const sizeControls = document.getElementById('bdg-size-controls');
+      if (sizeControls) sizeControls.classList.remove('hidden');
+      
+      render();
+      
+      setTimeout(() => {
+        const fatSlider = document.getElementById('fat-slider');
+        const muscSlider = document.getElementById('muscle-slider');
+        if (fatSlider && muscSlider) {
+          fatSlider.value = 5;
+          muscSlider.value = 5;
+          updateMatcherLabels();
+        }
+      }, 300);
+      
+      console.log('%c[Body Descriptor Guide] Updated with size filter, sort, and night mode.', 'color:#64748b');
+    }
+
+    window.onload = init;
+  </script>
+</body>
+</html>
